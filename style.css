@@ -143,3 +143,31 @@ button:active {
     }
 
 }
+
+/* Le style du nombre qui apparaît */
+.floating-number {
+    position: fixed;
+    /* Important pour utiliser left/top par rapport à l'écran */
+    transform: translate(-50%, -50%);
+    /* Centre le texte sur la souris */
+    pointer-events: none;
+    /* Empêche de cliquer sur le nombre au lieu de la guitare */
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.5rem;
+    z-index: 9999;
+    animation: floatAnimation 1.2s ease-out forwards;
+}
+
+@keyframes floatAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        opacity: 0;
+        /* On utilise la variable --random-x définie en JS pour la direction */
+        transform: translate(calc(-50% + var(--random-x)), -120px);
+    }
+}

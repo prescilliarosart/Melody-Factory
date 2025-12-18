@@ -1,3 +1,20 @@
+/*
+
+╔╗ ┬ ┬  ╔╦╗┌─┐┌─┐┌┬┐  ╔╦╗┌─┐┬ ┬
+╠╩╗└┬┘   ║ ├┤ ├─┤│││  ║║║├┤ │││
+╚═╝ ┴    ╩ └─┘┴ ┴┴ ┴  ╩ ╩└─┘└┴┘
+ ,  ,                            , _                                 
+/|_/        o  _|   _  ,_       /|/ \ ,_   _  ,   _  o |\ |\ o  _,   
+ |\   |  |  | / |  |/ /  |       |__//  | |/ / \_/   | |/ |/ | / |   
+ | \_/ \/|_/|/\/|_/|_/   |/o     |      |/|_/ \/ \__/|/|_/|_/|/\/|_/o
+                                                                    /
+ ()  _      |)   o  _      ()      ()_|_  _,   _                    
+ /\ / \_|/\_|/\  | |/      /\/     /\ |  / |  /   |  |               
+/(_)\_/ |_/ |  |/|/|_/o    \/\    /(_)|_/\/|_/\__/ \/|/o             
+       (|             /                             (|               
+*/
+//_____________La base du jeu (variables, constantes, et fonctions primordiales)
+
 let score = 0;
 let clickValue = 1;
 let passiveValue = 0;
@@ -8,10 +25,10 @@ function updateDisplay() {
     scoreDisplay.textContent = Math.floor(score);
 }
 
-guitarClick.addEventListener("click", () => {
+guitarClick.addEventListener("click", (e) => {
     score += clickValue;
     updateDisplay();
-
+    spawnFloatingNumbers(e);
 });
 
 setInterval(() => {
@@ -19,6 +36,24 @@ setInterval(() => {
     updateDisplay();
 
 }, 1000);
+
+//_____________Affichage des nombrea au click
+function spawnFloatingNumbers(e) {
+    const floatingText = document.createElement("span");
+    floatingText.classList.add("floating-number");
+    floatingText.textContent = `+${clickValue}`;
+    floatingText.style.left = `${e.clientX}px`;
+    floatingText.style.top = `${e.clientY}px`;
+    const randomX = (Math.random() - 0.5) * 100; // Déplacement entre -50px et 50px
+    floatingText.style.setProperty('--random-x', `${randomX}px`);
+
+    document.body.appendChild(floatingText);
+    setTimeout(() => {
+        floatingText.remove();
+    }, 1200);
+}
+
+
 
 //_____________Variables amélioration par click
 let mediatorLevel = 0;
