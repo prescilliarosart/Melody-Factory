@@ -1,0 +1,134 @@
+body {
+    background-image: url('image/Background\ K\ pop.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 93% 7%;
+    padding: 1em 0;
+
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Irish Grover';
+    font-size: 8em;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.guitar {
+    display: flex;
+    flex-direction: column;
+}
+
+.conteneur-score {
+    display: flex;
+    justify-content: center;
+}
+
+.score {
+    display: inline-block;
+    font-size: 4em;
+    border: solid;
+    padding: 5px 10px
+}
+
+h2 {
+    text-align: center;
+}
+
+.amelioration-button {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.amelioration-button button {
+    margin: .5em 0;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+.scéne {
+   width: 56.44em; 
+   height: 34.56em;
+}
+.button-lv {
+    width: 16.81em;
+    height: 4em;
+}
+.button-guitar {
+    width: 19.19em;
+    height: 49em;
+}
+p {
+    
+}
+@media screen and (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+    header {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+    nav{
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 1em;
+    }
+    .setting {
+        width: 4em;
+    }
+    h1 {
+        font-size: 3em;
+    }
+    .button-lv {
+        width: 8.5em;
+        height: 2em;
+    }
+    .button-guitar {
+        width: 10em;
+        height: 25em;
+    }
+    .scéne {
+        width: 100%;
+        height: auto;
+    }
+    p {
+        font-size: 2em;
+    }
+    img {
+        width: 4em;
+        height: 4em;      
+    }
+    .score {
+         font-size: 2em;
+    }
+
+}
