@@ -1,0 +1,217 @@
+body {
+    background-image: url('image/Background\ K\ pop.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0;
+}
+
+header {
+    display: grid;
+    grid-template-columns: 93% 7%;
+    padding: 1em 0;
+
+}
+
+h1 {
+    margin: 0;
+    font-family: 'Irish Grover';
+    font-size: 8em;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+main {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.guitar {
+    display: flex;
+    flex-direction: column;
+}
+
+.conteneur-score {
+    display: flex;
+    justify-content: center;
+}
+
+.score {
+    display: inline-block;
+    font-size: 4em;
+    border: solid;
+    padding: 5px 10px
+}
+
+h2 {
+    text-align: center;
+}
+
+.amelioration-button {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.amelioration-button button {
+    margin: .5em 0;
+}
+
+button {
+    background-color: transparent;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+}
+
+button:active {
+    transform: scale(0.95);
+    opacity: 0.8;
+}
+
+.scene-container {
+    position: relative;
+    width: 56.44em;
+    height: 34.56em;
+    margin: 0 auto;
+
+    background-image: url("image/musician_02 6.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.scene-upgrades {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.scene-upgrades img {
+    position: absolute;
+    width: 4em;
+    height: auto;
+}
+
+.button-lv {
+    width: 16.81em;
+    height: 4em;
+}
+
+.button-guitar {
+    width: 19.19em;
+    height: 49em;
+}
+
+@media screen and (max-width: 768px) {
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    header {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    nav {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 1em;
+    }
+
+    .setting {
+        width: 4em;
+    }
+
+    h1 {
+        font-size: 3em;
+    }
+
+    .button-lv {
+        width: 8.5em;
+        height: 2em;
+    }
+
+    .button-guitar {
+        width: 10em;
+        height: 25em;
+    }
+    
+    
+    .scene-container {
+        width: 100vw;        /* toute la largeur de l’écran */
+        height: auto;        /* laisse la hauteur s’adapter */
+        aspect-ratio: 56.44 / 34.56; /* garde les proportions */
+    }
+
+    .scene-upgrades img {
+        width: 3em;          /* images un peu plus petites en mobile */
+    }
+
+    p {
+        font-size: 2em;
+    }
+
+    img {
+        width: 4em;
+        height: 4em;
+    }
+
+    .score {
+        font-size: 2em;
+    }
+
+}
+
+/* Le style du clickValue qui apparaît */
+.floating-number {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    color: rgb(100, 48, 72);
+    font-weight: bold;
+    font-size: 1.5rem;
+    z-index: 9999;
+    animation: floatAnimation 1.2s ease-out forwards;
+}
+
+@keyframes floatAnimation {
+    0% {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translate(calc(-50% + var(--random-x)), -120px);
+    }
+}
+
+/* Conteneur d'information au coin du bouton */
+button .info {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 0.85rem;
+    color: #fff;
+    text-shadow: 0 0 3px #000;
+    pointer-events: none;
+    background-color: rgb(100, 48, 72);
+}
+
+/* Alignement vertical des deux lignes */
+button .info .level,
+button .info .price {
+    display: block;
+}
+
+/* S’assurer que le bouton soit en position relative pour que le span absolu se réfère à lui‑même */
+button {
+    position: relative;
+}
