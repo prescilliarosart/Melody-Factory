@@ -11,7 +11,10 @@
  ()  _      |)   o  _      ()      ()_|_  _,   _                    
  /\ / \_|/\_|/\  | |/      /\/     /\ |  / |  /   |  |               
 /(_)\_/ |_/ |  |/|/|_/o    \/\    /(_)|_/\/|_/\__/ \/|/o             
-       (|             /                             (|               
+       (|             /                             (|             
+           Date de création: 09 Décembre 2025
+           Dernière modification : 19 Décembre 2025
+  
 */
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
