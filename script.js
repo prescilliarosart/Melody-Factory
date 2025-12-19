@@ -47,7 +47,7 @@ function spawnFloatingNumbers(e) {
     floatingText.textContent = `+${clickValue}`;
     floatingText.style.left = `${e.clientX}px`;
     floatingText.style.top = `${e.clientY}px`;
-    const randomX = (Math.random() - 0.5) * 100; // Déplacement entre -50px et 50px
+    const randomX = (Math.random() - 0.5) * 200; // Déplacement entre -100px et 100px
     floatingText.style.setProperty('--random-x', `${randomX}px`);
 
     document.body.appendChild(floatingText);
