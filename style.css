@@ -149,7 +149,7 @@ button:active {
     position: fixed;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    color: #ffd700;
+    color: rgb(100, 48, 72);
     font-weight: bold;
     font-size: 1.5rem;
     z-index: 9999;
@@ -171,18 +171,13 @@ button:active {
 /* Conteneur d'information au coin du bouton */
 button .info {
     position: absolute;
-    /* on le sort du flux du bouton */
-    top: 4px;
-    /* petite marge interne */
+    top: 2px;
     left: 4px;
-    font-size: 0.75rem;
-    /* texte un peu plus petit */
+    font-size: 0.85rem;
     color: #fff;
-    /* contraste sur le fond du bouton */
     text-shadow: 0 0 3px #000;
-    /* lisibilité */
     pointer-events: none;
-    /* ne bloque pas le clic */
+    background-color: rgb(100, 48, 72);
 }
 
 /* Alignement vertical des deux lignes */

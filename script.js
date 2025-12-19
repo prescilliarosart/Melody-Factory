@@ -61,17 +61,17 @@ function spawnFloatingNumbers(e) {
 
 //_____________Variables amélioration par click
 let mediatorLevel = 0;
-let mediatorPrice = 10;
+let mediatorPrice = 15;
 let mancheLevel = 0;
-let manchePrice = 20;
+let manchePrice = 40;
 let ampliLevel = 0;
-let ampliPrice = 40;
+let ampliPrice = 80;
 let microLevel = 0;
-let microPrice = 80;
+let microPrice = 160;
 let corpsLevel = 0;
-let corpsPrice = 160;
+let corpsPrice = 320;
 let mecaniqueLevel = 0;
-let mecaniquePrice = 320;
+let mecaniquePrice = 640;
 
 //_____________Variables des gains passifs
 let cassetteQuantity = 0;
@@ -111,7 +111,7 @@ mediator.addEventListener("click", () => {
     score -= mediatorPrice;
     mediatorLevel += 1;
     clickValue += 1;
-    mediatorPrice = mediatorPrice * 1.2;
+    mediatorPrice = mediatorPrice * 1.7;
     refreshButtonInfo(mediator, mediatorLevel, mediatorPrice);
     updateDisplay();
 
@@ -123,7 +123,7 @@ manche.addEventListener("click", () => {
     score -= manchePrice;
     mancheLevel += 1;
     clickValue += 2;
-    manchePrice = manchePrice * 1.2;
+    manchePrice = manchePrice * 1.6;
     refreshButtonInfo(manche, mancheLevel, manchePrice);
     updateDisplay();
 
@@ -135,7 +135,7 @@ ampli.addEventListener("click", () => {
     score -= ampliPrice;
     ampliLevel += 1;
     clickValue += 3;
-    ampliPrice = ampliPrice * 1.2;
+    ampliPrice = ampliPrice * 1.5;
     refreshButtonInfo(ampli, ampliLevel, ampliPrice);
     updateDisplay();
 
@@ -147,7 +147,7 @@ micro.addEventListener("click", () => {
     score -= microPrice;
     microLevel += 1;
     clickValue += 4;
-    microPrice = microPrice * 1.2;
+    microPrice = microPrice * 1.4;
     refreshButtonInfo(micro, microLevel, microPrice);
     updateDisplay();
 
@@ -159,7 +159,7 @@ corps.addEventListener("click", () => {
     score -= corpsPrice;
     corpsLevel += 1;
     clickValue += 5;
-    corpsPrice = corpsPrice * 1.2;
+    corpsPrice = corpsPrice * 1.3;
     refreshButtonInfo(corps, corpsLevel, corpsPrice);
     updateDisplay();
 
@@ -184,7 +184,7 @@ cassette.addEventListener("click", () => {
 
     score -= cassettePrice;
     cassetteQuantity += 1;
-    passiveValue += 0.1 * clickValue;
+    passiveValue += 0.05 * clickValue;
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
@@ -196,7 +196,7 @@ album.addEventListener("click", () => {
 
     score -= albumPrice;
     albumQuantity += 1;
-    passiveValue += 0.2 * clickValue;
+    passiveValue += 0.1 * clickValue;
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
@@ -208,7 +208,7 @@ ticket.addEventListener("click", () => {
 
     score -= ticketPrice;
     ticketQuantity += 1;
-    passiveValue += 0.3 * clickValue;
+    passiveValue += 0.15 * clickValue;
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
@@ -220,7 +220,7 @@ placesConcert.addEventListener("click", () => {
 
     score -= placesConcertPrice;
     placesConcertQuantity += 1;
-    passiveValue += 0.4 * clickValue;
+    passiveValue += 0.2 * clickValue;
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
@@ -232,7 +232,7 @@ casque.addEventListener("click", () => {
 
     score -= casquePrice;
     casqueQuantity += 1;
-    passiveValue += 0.5 * clickValue;
+    passiveValue += 0.25 * clickValue;
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
@@ -244,7 +244,7 @@ worldTour.addEventListener("click", () => {
 
     score -= worldTourPrice;
     worldTourQuantity += 1;
-    passiveValue += 0.6 * clickValue;
+    passiveValue += 0.3 * clickValue;
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
