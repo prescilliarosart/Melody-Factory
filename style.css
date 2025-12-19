@@ -74,9 +74,28 @@ button:active {
     opacity: 0.8;
 }
 
-.scéne {
+.scene-container {
+    position: relative;
     width: 56.44em;
     height: 34.56em;
+    margin: 0 auto;
+
+    background-image: url("image/musician_02 6.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.scene-upgrades {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.scene-upgrades img {
+    position: absolute;
+    width: 4em;
+    height: auto;
 }
 
 .button-lv {
