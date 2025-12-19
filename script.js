@@ -111,7 +111,7 @@ mediator.addEventListener("click", () => {
     score -= mediatorPrice;
     mediatorLevel += 1;
     clickValue += 1;
-    mediatorPrice = mediatorPrice * 1.7;
+    mediatorPrice = mediatorPrice * 1.3;
     refreshButtonInfo(mediator, mediatorLevel, mediatorPrice);
     updateDisplay();
 
@@ -123,7 +123,7 @@ manche.addEventListener("click", () => {
     score -= manchePrice;
     mancheLevel += 1;
     clickValue += 2;
-    manchePrice = manchePrice * 1.6;
+    manchePrice = manchePrice * 1.3;
     refreshButtonInfo(manche, mancheLevel, manchePrice);
     updateDisplay();
 
@@ -135,7 +135,7 @@ ampli.addEventListener("click", () => {
     score -= ampliPrice;
     ampliLevel += 1;
     clickValue += 3;
-    ampliPrice = ampliPrice * 1.5;
+    ampliPrice = ampliPrice * 1.3;
     refreshButtonInfo(ampli, ampliLevel, ampliPrice);
     updateDisplay();
 
@@ -147,7 +147,7 @@ micro.addEventListener("click", () => {
     score -= microPrice;
     microLevel += 1;
     clickValue += 4;
-    microPrice = microPrice * 1.4;
+    microPrice = microPrice * 1.3;
     refreshButtonInfo(micro, microLevel, microPrice);
     updateDisplay();
 
@@ -171,7 +171,7 @@ mecanique.addEventListener("click", () => {
     score -= mecaniquePrice;
     mecaniqueLevel += 1;
     clickValue += 6;
-    mecaniquePrice = mecaniquePrice * 1.2;
+    mecaniquePrice = mecaniquePrice * 1.3;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
 
