@@ -188,7 +188,7 @@ cassette.addEventListener("click", () => {
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
-
+    addUpgradeToScene("image/PC Cassette.png");
 });
 
 album.addEventListener("click", () => {
@@ -200,7 +200,7 @@ album.addEventListener("click", () => {
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
-
+    addUpgradeToScene("image/Album.png");
 });
 
 ticket.addEventListener("click", () => {
@@ -212,7 +212,7 @@ ticket.addEventListener("click", () => {
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
-
+    addUpgradeToScene("image/Ticket.png");
 });
 
 placesConcert.addEventListener("click", () => {
@@ -224,7 +224,7 @@ placesConcert.addEventListener("click", () => {
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
-
+    addUpgradeToScene("image/Places de concert.png");
 });
 
 casque.addEventListener("click", () => {
@@ -236,7 +236,7 @@ casque.addEventListener("click", () => {
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
-
+    addUpgradeToScene("image/Casque.png");
 });
 
 worldTour.addEventListener("click", () => {
@@ -248,7 +248,7 @@ worldTour.addEventListener("click", () => {
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
-
+    addUpgradeToScene("image/PC World tour.png");
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -279,4 +279,18 @@ function refreshButtonInfo(buttonEl, level, price) {
         priceSpan.textContent = `${roundedPrice} €`;
     }
 
+}
+const sceneUpgradesContainer = document.querySelector(".scene-upgrades");
+
+function addUpgradeToScene(imageSrc) {
+    const img = document.createElement("img");
+    img.src = imageSrc;
+
+    const maxX = sceneUpgradesContainer.clientWidth - 64;
+    const maxY = sceneUpgradesContainer.clientHeight - 64;
+
+    img.style.left = Math.random() * maxX + "px";
+    img.style.top = Math.random() * maxY + "px";
+
+    sceneUpgradesContainer.appendChild(img);
 }
