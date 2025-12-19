@@ -167,3 +167,31 @@ button:active {
         transform: translate(calc(-50% + var(--random-x)), -120px);
     }
 }
+
+/* Conteneur d'information au coin du bouton */
+button .info {
+    position: absolute;
+    /* on le sort du flux du bouton */
+    top: 4px;
+    /* petite marge interne */
+    left: 4px;
+    font-size: 0.75rem;
+    /* texte un peu plus petit */
+    color: #fff;
+    /* contraste sur le fond du bouton */
+    text-shadow: 0 0 3px #000;
+    /* lisibilité */
+    pointer-events: none;
+    /* ne bloque pas le clic */
+}
+
+/* Alignement vertical des deux lignes */
+button .info .level,
+button .info .price {
+    display: block;
+}
+
+/* S’assurer que le bouton soit en position relative pour que le span absolu se réfère à lui‑même */
+button {
+    position: relative;
+}
