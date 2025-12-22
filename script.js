@@ -87,6 +87,16 @@ let casquePrice = 1600;
 let worldTourQuantity = 0;
 let worldTourPrice = 3200;
 
+//_____________Constantes skin guitare par pallier de nivau
+
+const guitarSkins = [
+    { level: 0, src: "image/PC GUITAR Niveau1 1.png" },
+    { level: 10, src: "image/GUITAR Niveau2.png" },
+    { level: 20, src: "image/GUITAR Niveau3.png" },
+    { level: 30, src: "image/GUITAR Niveau4.png" },
+    { level: 40, src: "image/GUITAR Niveau5.png" }
+];
+
 //_____________Création des boutons amélioration par click
 const mediator = document.querySelector(".mediator");
 const manche = document.querySelector(".manche");
@@ -114,7 +124,7 @@ mediator.addEventListener("click", () => {
     mediatorPrice = mediatorPrice * 1.7;
     refreshButtonInfo(mediator, mediatorLevel, mediatorPrice);
     updateDisplay();
-
+    updateGuitarSkin();
 });
 
 manche.addEventListener("click", () => {
@@ -126,6 +136,7 @@ manche.addEventListener("click", () => {
     manchePrice = manchePrice * 1.6;
     refreshButtonInfo(manche, mancheLevel, manchePrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -138,6 +149,7 @@ ampli.addEventListener("click", () => {
     ampliPrice = ampliPrice * 1.5;
     refreshButtonInfo(ampli, ampliLevel, ampliPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -150,6 +162,7 @@ micro.addEventListener("click", () => {
     microPrice = microPrice * 1.4;
     refreshButtonInfo(micro, microLevel, microPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -162,6 +175,7 @@ corps.addEventListener("click", () => {
     corpsPrice = corpsPrice * 1.3;
     refreshButtonInfo(corps, corpsLevel, corpsPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -174,6 +188,7 @@ mecanique.addEventListener("click", () => {
     mecaniquePrice = mecaniquePrice * 1.2;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -188,6 +203,7 @@ cassette.addEventListener("click", () => {
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -200,6 +216,7 @@ album.addEventListener("click", () => {
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -212,6 +229,7 @@ ticket.addEventListener("click", () => {
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -224,6 +242,7 @@ placesConcert.addEventListener("click", () => {
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -236,6 +255,7 @@ casque.addEventListener("click", () => {
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -248,6 +268,7 @@ worldTour.addEventListener("click", () => {
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
+    updateGuitarSkin();
 
 });
 
@@ -280,3 +301,71 @@ function refreshButtonInfo(buttonEl, level, price) {
     }
 
 }
+
+//_____________Fonction pour calculuer le niveau global
+
+function getGlobalLevel() {
+    return Math.max(
+        mediatorLevel,
+        mancheLevel,
+        ampliLevel,
+        microLevel,
+        corpsLevel,
+        mecaniqueLevel
+    );
+}
+
+//_____________Fonction de mise à jour du skin
+
+const guitarImg = document.querySelector(".button-guitar");
+
+function updateGuitarSkin() {
+    const level = getGlobalLevel();
+
+    let selectedSkin = guitarSkins[0].src;
+
+    for (const skin of guitarSkins) {
+        if (level >= skin.level) {
+            selectedSkin = skin.src;
+        }
+    }
+
+    guitarImg.src = selectedSkin;
+}
+
+// ================== PARAMÈTRES / LUMINOSITÉ ==================
+
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsPanel = document.getElementById("settingsPanel");
+const brightnessSlider = document.getElementById("brightness");
+const brightnessValue = document.getElementById("brightnessValue");
+
+// Ouvrir / fermer le panneau
+settingsBtn.addEventListener("click", () => {
+    settingsPanel.classList.toggle("hidden");
+});
+
+// Charger la luminosité sauvegardée
+const savedBrightness = localStorage.getItem("brightness") || 100;
+brightnessSlider.value = savedBrightness;
+brightnessValue.textContent = `${savedBrightness}%`;
+document.documentElement.style.setProperty(
+    "--brightness",
+    `${savedBrightness}%`
+);
+
+// Modifier la luminosité
+brightnessSlider.addEventListener("input", () => {
+    const value = brightnessSlider.value;
+    brightnessValue.textContent = `${value}%`;
+    document.documentElement.style.setProperty("--brightness", `${value}%`);
+    localStorage.setItem("brightness", value);
+});
+
+// Fermer si clic en dehors
+document.addEventListener("click", (e) => {
+    if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+        settingsPanel.classList.add("hidden");
+    }
+});
+

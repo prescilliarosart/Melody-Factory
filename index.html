@@ -30,7 +30,9 @@
     <header>
         <h1>MELODY factory</h1>
         <nav>
-            <button><img src="image/parametres 5.png" class="setting"></button>
+            <button id="settingsBtn">
+                <img src="image/parametres 5.png" class="setting">
+            </button>
         </nav>
     </header>
     <main>
@@ -123,6 +125,17 @@
                     <img src="image/PC World tour.png" alt=""></button>
             </div>
         </article>
+
+        <!-- Panneau paramètres -->
+        <div id="settingsPanel" class="hidden">
+            <h3>Paramètres</h3>
+
+            <label>
+                Luminosité
+                <input type="range" min="10" max="100" value="100" id="brightness">
+                <span id="brightnessValue">100%</span>
+            </label>
+        </div>
 
     </main>
     <script src="script.js"></script>
