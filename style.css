@@ -32,6 +32,16 @@ main {
 
 }
 
+.button-lv:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+.button-lv {
+    transition: 0.3s;
+}
+
 .guitar {
     display: flex;
     flex-direction: column;

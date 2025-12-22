@@ -19,8 +19,11 @@
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
 let score = 0;
-let clickValue = 1;
+let clickValue = 1000;
 let passiveValue = 0;
+let currentSkinLevel = 0;
+const LEVEL_STEP = 10;
+const buttonLv = document.querySelector(".button-lv");
 const scoreDisplay = document.getElementById("score");
 const guitarClick = document.querySelector(".onclick");
 
@@ -39,6 +42,39 @@ setInterval(() => {
     updateDisplay();
 
 }, 1000);
+
+//_____________Bouton Level Up doit être activé
+
+function checkLevelUp() {
+    const commonLevel = getCommonLevel();
+    const nextLevel = currentSkinLevel + LEVEL_STEP;
+
+    if (commonLevel >= nextLevel) {
+        buttonLv.disabled = false;
+    } else {
+        buttonLv.disabled = true;
+    }
+}
+
+buttonLv.addEventListener("click", () => {
+    if (buttonLv.disabled) return;
+
+    currentSkinLevel += LEVEL_STEP;
+    updateGuitarSkin();
+    buttonLv.disabled = true;
+});
+
+function updateGuitarSkin() {
+    let selectedSkin = guitarSkins[0].src;
+
+    for (const skin of guitarSkins) {
+        if (currentSkinLevel >= skin.level) {
+            selectedSkin = skin.src;
+        }
+    }
+
+    guitarImg.src = selectedSkin;
+}
 
 
 //_____________Affichage des nombrea au click
@@ -87,7 +123,7 @@ let casquePrice = 1600;
 let worldTourQuantity = 0;
 let worldTourPrice = 3200;
 
-//_____________Constantes skin guitare par pallier de nivau
+//_____________Constantes skin guitare par pallier de niveau
 
 const guitarSkins = [
     { level: 0, src: "image/PC GUITAR Niveau1 1.png" },
@@ -124,7 +160,7 @@ mediator.addEventListener("click", () => {
     mediatorPrice = mediatorPrice * 1.7;
     refreshButtonInfo(mediator, mediatorLevel, mediatorPrice);
     updateDisplay();
-    updateGuitarSkin();
+    checkLevelUp();
 });
 
 manche.addEventListener("click", () => {
@@ -136,8 +172,7 @@ manche.addEventListener("click", () => {
     manchePrice = manchePrice * 1.6;
     refreshButtonInfo(manche, mancheLevel, manchePrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 ampli.addEventListener("click", () => {
@@ -149,8 +184,7 @@ ampli.addEventListener("click", () => {
     ampliPrice = ampliPrice * 1.5;
     refreshButtonInfo(ampli, ampliLevel, ampliPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 micro.addEventListener("click", () => {
@@ -162,8 +196,7 @@ micro.addEventListener("click", () => {
     microPrice = microPrice * 1.4;
     refreshButtonInfo(micro, microLevel, microPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 corps.addEventListener("click", () => {
@@ -175,8 +208,7 @@ corps.addEventListener("click", () => {
     corpsPrice = corpsPrice * 1.3;
     refreshButtonInfo(corps, corpsLevel, corpsPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 mecanique.addEventListener("click", () => {
@@ -188,8 +220,7 @@ mecanique.addEventListener("click", () => {
     mecaniquePrice = mecaniquePrice * 1.2;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 //_____________Fonctions d'améliorations passives
@@ -203,8 +234,7 @@ cassette.addEventListener("click", () => {
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 album.addEventListener("click", () => {
@@ -216,8 +246,7 @@ album.addEventListener("click", () => {
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 ticket.addEventListener("click", () => {
@@ -229,8 +258,7 @@ ticket.addEventListener("click", () => {
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 placesConcert.addEventListener("click", () => {
@@ -242,8 +270,7 @@ placesConcert.addEventListener("click", () => {
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 casque.addEventListener("click", () => {
@@ -255,8 +282,7 @@ casque.addEventListener("click", () => {
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 worldTour.addEventListener("click", () => {
@@ -268,8 +294,7 @@ worldTour.addEventListener("click", () => {
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
-    updateGuitarSkin();
-
+    checkLevelUp();
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -304,8 +329,8 @@ function refreshButtonInfo(buttonEl, level, price) {
 
 //_____________Fonction pour calculuer le niveau global
 
-function getGlobalLevel() {
-    return Math.max(
+function getCommonLevel() {
+    return Math.min(
         mediatorLevel,
         mancheLevel,
         ampliLevel,
@@ -320,8 +345,7 @@ function getGlobalLevel() {
 const guitarImg = document.querySelector(".button-guitar");
 
 function updateGuitarSkin() {
-    const level = getGlobalLevel();
-
+    const level = getCommonLevel();
     let selectedSkin = guitarSkins[0].src;
 
     for (const skin of guitarSkins) {
