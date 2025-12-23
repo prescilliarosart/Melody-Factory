@@ -111,6 +111,7 @@ button:active {
 .button-lv {
     width: 16.81em;
     height: 4em;
+    margin: 30px;
 }
 
 .button-guitar {
@@ -180,15 +181,16 @@ html {
         width: 10em;
         height: 25em;
     }
-    
-    
+
+
     .scene-container {
-        width: 100vw;        
-        height: auto;        
-        aspect-ratio: 56.44 / 34.56; 
+        width: 100vw;
+        height: auto;
+        aspect-ratio: 56.44 / 34.56;
     }
+
     .scene-upgrades img {
-        width: 3em;          
+        width: 3em;
     }
 
     p {
