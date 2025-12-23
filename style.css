@@ -183,13 +183,12 @@ html {
     
     
     .scene-container {
-        width: 100vw;        /* toute la largeur de l’écran */
-        height: auto;        /* laisse la hauteur s’adapter */
-        aspect-ratio: 56.44 / 34.56; /* garde les proportions */
+        width: 100vw;        
+        height: auto;        
+        aspect-ratio: 56.44 / 34.56; 
     }
-
     .scene-upgrades img {
-        width: 3em;          /* images un peu plus petites en mobile */
+        width: 3em;          
     }
 
     p {
