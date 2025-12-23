@@ -248,10 +248,40 @@ mecanique.addEventListener("click", () => {
     mecaniquePrice = mecaniquePrice * 1.3;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
+<<<<<<< HEAD
     checkLevelUp();
 });
 */
 // Remplacez tout le bloc commenté (Ancienne méthode) par ceci :
+=======
+
+});*/
+
+//_____________Nouvelle méthode :
+
+/**
+ * Augmente le niveau d’un upgrade s’il est autorisé.
+ * Met à jour le prix, le score et l’affichage du bouton.
+ */
+function tryUpgrade(name) {
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+
+    // 1️⃣ Vérifier le score disponible
+    if (score < up.price) return;   // pas assez d’argent → rien ne se passe
+
+    // 2️⃣ Vérifier la règle de décade
+    if (!canUpgrade(up)) return;    // limite atteinte → on bloque
+
+    // 3️⃣ Appliquer l’amélioration
+    score -= up.price;
+    up.level += 1;                           // +1 niveau
+    clickValue += getIncrement(name);        // fonction séparée (voir ci‑dessous)
+    up.price = Math.round(up.price * 1.2);   // hausse de 20 %
+    refreshButtonInfo(document.querySelector(`.${name}`), up.level, up.price);
+    updateDisplay();
+}
+>>>>>>> Stacy
 
 upgrades.forEach((up, index) => {
     const buttonElement = document.querySelector(`.${up.name}`);
@@ -469,3 +499,34 @@ function lancerMusique() {
 
 document.addEventListener('click', lancerMusique);
 
+<<<<<<< HEAD
+=======
+    sceneUpgradesContainer.appendChild(img);
+}
+
+function getIncrement(name) {
+    switch (name) {
+        case 'mediator': return 1;
+        case 'manche': return 2;
+        case 'ampli': return 3;
+        case 'micro': return 4;
+        case 'corps': return 5;
+        case 'mecanique': return 6;
+        default: return 0;
+    }
+}
+
+document.querySelector('.mediator').addEventListener('click', () => tryUpgrade('mediator'));
+document.querySelector('.manche').addEventListener('click', () => tryUpgrade('manche'));
+document.querySelector('.ampli').addEventListener('click', () => tryUpgrade('ampli'));
+document.querySelector('.micro').addEventListener('click', () => tryUpgrade('micro'));
+document.querySelector('.corps').addEventListener('click', () => tryUpgrade('corps'));
+document.querySelector('.mecanique').addEventListener('click', () => tryUpgrade('mecanique'));
+
+window.addEventListener('DOMContentLoaded', () => {
+    upgrades.forEach(u => {
+        const btn = document.querySelector(`.${u.name}`);
+        if (btn) refreshButtonInfo(btn, u.level, u.price);
+    });
+});
+>>>>>>> Stacy
