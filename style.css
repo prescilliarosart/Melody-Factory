@@ -173,8 +173,12 @@ html {
     }
 
     .button-lv {
+
         width: 8.5em;
-        height: 2em;
+        height: auto;
+        aspect-ratio: auto;
+        object-fit: contain;
+        margin-left: 8px;
     }
 
     .button-guitar {
