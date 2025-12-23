@@ -30,12 +30,16 @@
     <header>
         <h1>MELODY factory</h1>
         <nav>
-            <button><img src="image/parametres 5.png" class="setting"></button>
+            <button id="settingsBtn">
+                <img src="image/parametres 5.png" class="setting">
+            </button>
         </nav>
     </header>
     <main>
         <div class="guitar">
-            <button><img src="image/image 46.png" class="button-lv" alt="button pour monter de niveau"></button>
+            <button class="button-lv" disabled>
+                <img src="image/image 46.png" alt="button pour monter de niveau">
+            </button>
             <button class="onclick"><img src="image/PC GUITAR Niveau1 1.png" class="button-guitar"
                     alt="guitar ou cliquer pour augmenter son score"></button>
         </div>
@@ -124,6 +128,17 @@
             </div>
         </article>
 
+        <!-- Panneau paramètres -->
+        <div id="settingsPanel" class="hidden">
+            <h3>Paramètres</h3>
+
+            <label>
+                Luminosité
+                <input type="range" min="10" max="100" value="100" id="brightness">
+                <span id="brightnessValue">100%</span>
+            </label>
+        </div>
+<audio id="monAudio" src="musique de fond.mp3" controls loop></audio>
     </main>
     <script src="script.js"></script>
 </body>
