@@ -19,7 +19,7 @@
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
 let score = 0;
-let clickValue = 100;
+let clickValue = 10000000;
 let passiveValue = 0;
 let currentSkinLevel = 0;
 const LEVEL_STEP = 10;
@@ -253,74 +253,47 @@ mecanique.addEventListener("click", () => {
 });
 */
 // Remplacez tout le bloc commenté (Ancienne méthode) par ceci :
-=======
 
-});*/
-
-//_____________Nouvelle méthode :
-
-/**
- * Augmente le niveau d’un upgrade s’il est autorisé.
- * Met à jour le prix, le score et l’affichage du bouton.
- */
-function tryUpgrade(name) {
-    const up = upgrades.find(u => u.name === name);
-    if (!up) return console.error('Upgrade inconnu :', name);
-
-    // 1️⃣ Vérifier le score disponible
-    if (score < up.price) return;   // pas assez d’argent → rien ne se passe
-
-    // 2️⃣ Vérifier la règle de décade
-    if (!canUpgrade(up)) return;    // limite atteinte → on bloque
-
-    // 3️⃣ Appliquer l’amélioration
-    score -= up.price;
-    up.level += 1;                           // +1 niveau
-    clickValue += getIncrement(name);        // fonction séparée (voir ci‑dessous)
-    up.price = Math.round(up.price * 1.2);   // hausse de 20 %
-    refreshButtonInfo(document.querySelector(`.${name}`), up.level, up.price);
-    updateDisplay();
-}
->>>>>>> Stacy
-
+//_____________Gestion des améliorations par clic (TALENT)
 upgrades.forEach((up, index) => {
     const buttonElement = document.querySelector(`.${up.name}`);
 
-    buttonElement.addEventListener("click", () => {
-        // 1. Vérifier si on a assez de score
-        if (score < up.price) return;
+    if (buttonElement) {
+        buttonElement.addEventListener("click", () => {
+            // 1. Vérifier le score
+            if (score < up.price) return;
 
-        // 2. Vérifier si on n'a pas atteint la limite du palier (votre règle de gestion)
-        if (!canUpgrade(up)) {
-            alert("Montez les autres éléments pour débloquer ce niveau !");
-            return;
-        }
+            // 2. Vérifier la règle de palier (tous les éléments doivent monter ensemble)
+            if (!canUpgrade(up)) {
+                alert("Montez les autres éléments de talent pour débloquer ce niveau !");
+                return;
+            }
 
-        // 3. Appliquer l'achat
-        score -= up.price;
-        up.level += 1;
+            // 3. Appliquer l'achat
+            score -= up.price;
+            up.level += 1;
 
-        // Mise à jour de la puissance de clic (ajuste selon votre équilibrage)
-        clickValue += (index + 1);
+            // 4. Synchroniser les anciennes variables pour les fonctions globales
+            if (up.name === 'mediator') mediatorLevel = up.level;
+            if (up.name === 'manche') mancheLevel = up.level;
+            if (up.name === 'ampli') ampliLevel = up.level;
+            if (up.name === 'micro') microLevel = up.level;
+            if (up.name === 'corps') corpsLevel = up.level;
+            if (up.name === 'mecanique') mecaniqueLevel = up.level;
 
-        // Augmentation du prix (ex: +30%)
-        up.price = Math.floor(up.price * 1.3);
+            // 5. Calcul des gains
+            clickValue += (index + 1);
+            up.price = Math.floor(up.price * 1.3);
 
-        // 4. Synchroniser avec les anciennes variables pour ne pas casser le reste du code
-        // (Note: Idéalement, il faudrait supprimer ces variables globales à l'avenir)
-        if (up.name === 'mediator') mediatorLevel = up.level;
-        if (up.name === 'manche') mancheLevel = up.level;
-        if (up.name === 'ampli') ampliLevel = up.level;
-        if (up.name === 'micro') microLevel = up.level;
-        if (up.name === 'corps') corpsLevel = up.level;
-        if (up.name === 'mecanique') mecaniqueLevel = up.level;
-
-        // 5. Mettre à jour l'interface
-        refreshButtonInfo(buttonElement, up.level, up.price);
-        updateDisplay();
-        checkLevelUp();
-    });
+            // 6. Mise à jour UI
+            refreshButtonInfo(buttonElement, up.level, up.price);
+            updateDisplay();
+            checkLevelUp();
+        });
+    }
 });
+
+
 //_____________Fonctions d'améliorations passives
 
 cassette.addEventListener("click", () => {
@@ -495,14 +468,12 @@ const audio = document.getElementById('monAudio');
 function lancerMusique() {
     audio.play();
     document.removeEventListener('click', lancerMusique);
-}
-
-document.addEventListener('click', lancerMusique);
-
-<<<<<<< HEAD
-=======
+    document.addEventListener('click', lancerMusique);
     sceneUpgradesContainer.appendChild(img);
 }
+
+
+
 
 function getIncrement(name) {
     switch (name) {
@@ -529,4 +500,4 @@ window.addEventListener('DOMContentLoaded', () => {
         if (btn) refreshButtonInfo(btn, u.level, u.price);
     });
 });
->>>>>>> Stacy
+
