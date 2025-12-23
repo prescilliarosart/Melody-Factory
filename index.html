@@ -92,7 +92,7 @@
                     </span>
                     <img src="image/PC Album.png" alt=""></button>
             </div>
-             <h2>POPULARITÉ</h2>
+            <h2>POPULARITÉ</h2>
             <div class="amelioration-button">
                 <button class="cassette">
                     <span class="info">
@@ -136,14 +136,22 @@
         <!-- Panneau paramètres -->
         <div id="settingsPanel" class="hidden">
             <h3>Paramètres</h3>
+            <div class="setting-item">
 
+                <button id="toggleMusic">Play / Pause</button>
+            </div>
+            <div class="setting-item">
+                <label for="volumeSlider">Volume Musique</label>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+                <span id="volumeValue">50%</span>
+            </div>
             <label>
                 Luminosité
                 <input type="range" min="10" max="100" value="100" id="brightness">
                 <span id="brightnessValue">100%</span>
             </label>
         </div>
-<audio id="monAudio" src="musique de fond.mp3" controls loop></audio>
+        <audio id="monAudio" src="musique de fond.mp3" loop></audio>
     </main>
     <script src="script.js"></script>
 </body>

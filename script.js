@@ -484,14 +484,25 @@ document.addEventListener("click", (e) => {
     }
 });
 const audio = document.getElementById('monAudio');
+const toggleMusicBtn = document.getElementById('toggleMusic');
 
-function lancerMusique() {
-    audio.play();
-    document.removeEventListener('click', lancerMusique);
-
-    // sceneUpgradesContainer.appendChild(img);
+function lancerMusiqueAutomatique() {
+    audio.play().then(() => {
+        document.removeEventListener('click', lancerMusiqueAutomatique);
+    }).catch(e => console.log("Attente d'interaction pour l'audio"));
 }
-document.addEventListener('click', lancerMusique);
+document.addEventListener('click', lancerMusiqueAutomatique);
+
+// Gestion du bouton Play/Pause dans les paramètres
+toggleMusicBtn.addEventListener('click', () => {
+    if (audio.paused) {
+        audio.play();
+        toggleMusicBtn.textContent = "Pause";
+    } else {
+        audio.pause();
+        toggleMusicBtn.textContent = "Play";
+    }
+});
 
 
 
@@ -521,3 +532,16 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Sélection des nouveaux éléments
+const volumeSlider = document.getElementById("volumeSlider");
+const volumeValue = document.getElementById("volumeValue");
+
+// Initialisation du volume par défaut (50%)
+audio.volume = 0.5;
+
+// Écouteur pour changer le volume
+volumeSlider.addEventListener("input", () => {
+    const vol = volumeSlider.value;
+    audio.volume = vol; // Modifie le volume de l'élément <audio>
+    volumeValue.textContent = `${Math.round(vol * 100)}%`;
+});
