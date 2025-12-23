@@ -19,7 +19,7 @@
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
 let score = 0;
-let clickValue = 1;
+let clickValue = 1000;
 let passiveValue = 0;
 const scoreDisplay = document.getElementById("score");
 const guitarClick = document.querySelector(".onclick");
@@ -286,11 +286,12 @@ function addUpgradeToScene(imageSrc) {
     const img = document.createElement("img");
     img.src = imageSrc;
 
-    const maxX = sceneUpgradesContainer.clientWidth - 64;
-    const maxY = sceneUpgradesContainer.clientHeight - 64;
+    // Position en pourcentage
+    const xPercent = Math.random() * 90; // max 90% pour éviter les bords
+    const yPercent = Math.random() * 90;
 
-    img.style.left = Math.random() * maxX + "px";
-    img.style.top = Math.random() * maxY + "px";
+    img.style.left = xPercent + "%";
+    img.style.top = yPercent + "%";
 
     sceneUpgradesContainer.appendChild(img);
 }

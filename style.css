@@ -95,6 +95,7 @@ button:active {
 .scene-upgrades img {
     position: absolute;
     width: 4em;
+    max-width: 10%;
     height: auto;
 }
 
