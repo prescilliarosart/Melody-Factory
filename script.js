@@ -72,6 +72,22 @@ let corpsLevel = 0;
 let corpsPrice = 320;
 let mecaniqueLevel = 0;
 let mecaniquePrice = 640;
+const upgrades = [
+    { name: 'mediator', level: 0, price: 15 },
+    { name: 'manche', level: 0, price: 40 },
+    { name: 'ampli', level: 0, price: 80 },
+    { name: 'micro', level: 0, price: 160 },
+    { name: 'corps', level: 0, price: 320 },
+    { name: 'mecanique', level: 0, price: 640 }
+];
+function getCurrentDecadeLimit() {
+    const minLevel = Math.min(...upgrades.map(u => u.level));
+    return Math.floor(minLevel / 10) * 10 + 10;
+}
+function canUpgrade(upgrade) {
+    const limit = getCurrentDecadeLimit();
+    return upgrade.level < limit;
+}
 
 //_____________Variables des gains passifs
 let cassetteQuantity = 0;
@@ -104,10 +120,12 @@ const casque = document.querySelector(".casque");
 const worldTour = document.querySelector(".worldTour");
 
 //_____________Fonctions d'améliorations par click
-
+/*_____________Ancienne méthode.
 mediator.addEventListener("click", () => {
     if (score < mediatorPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= mediatorPrice;
     mediatorLevel += 1;
     clickValue += 1;
@@ -119,7 +137,9 @@ mediator.addEventListener("click", () => {
 
 manche.addEventListener("click", () => {
     if (score < manchePrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= manchePrice;
     mancheLevel += 1;
     clickValue += 2;
@@ -131,7 +151,9 @@ manche.addEventListener("click", () => {
 
 ampli.addEventListener("click", () => {
     if (score < ampliPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= ampliPrice;
     ampliLevel += 1;
     clickValue += 3;
@@ -143,7 +165,9 @@ ampli.addEventListener("click", () => {
 
 micro.addEventListener("click", () => {
     if (score < microPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= microPrice;
     microLevel += 1;
     clickValue += 4;
@@ -155,7 +179,9 @@ micro.addEventListener("click", () => {
 
 corps.addEventListener("click", () => {
     if (score < corpsPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= corpsPrice;
     corpsLevel += 1;
     clickValue += 5;
@@ -167,7 +193,9 @@ corps.addEventListener("click", () => {
 
 mecanique.addEventListener("click", () => {
     if (score < mecaniquePrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= mecaniquePrice;
     mecaniqueLevel += 1;
     clickValue += 6;
@@ -175,7 +203,32 @@ mecanique.addEventListener("click", () => {
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
 
-});
+});*/
+
+//_____________Nouvelle méthode :
+
+/**
+ * Augmente le niveau d’un upgrade s’il est autorisé.
+ * Met à jour le prix, le score et l’affichage du bouton.
+ */
+function tryUpgrade(name) {
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+
+    // 1️⃣ Vérifier le score disponible
+    if (score < up.price) return;   // pas assez d’argent → rien ne se passe
+
+    // 2️⃣ Vérifier la règle de décade
+    if (!canUpgrade(up)) return;    // limite atteinte → on bloque
+
+    // 3️⃣ Appliquer l’amélioration
+    score -= up.price;
+    up.level += 1;                           // +1 niveau
+    clickValue += getIncrement(name);        // fonction séparée (voir ci‑dessous)
+    up.price = Math.round(up.price * 1.2);   // hausse de 20 %
+    refreshButtonInfo(document.querySelector(`.${name}`), up.level, up.price);
+    updateDisplay();
+}
 
 //_____________Fonctions d'améliorations passives
 
@@ -294,3 +347,29 @@ function addUpgradeToScene(imageSrc) {
 
     sceneUpgradesContainer.appendChild(img);
 }
+
+function getIncrement(name) {
+    switch (name) {
+        case 'mediator': return 1;
+        case 'manche': return 2;
+        case 'ampli': return 3;
+        case 'micro': return 4;
+        case 'corps': return 5;
+        case 'mecanique': return 6;
+        default: return 0;
+    }
+}
+
+document.querySelector('.mediator').addEventListener('click', () => tryUpgrade('mediator'));
+document.querySelector('.manche').addEventListener('click', () => tryUpgrade('manche'));
+document.querySelector('.ampli').addEventListener('click', () => tryUpgrade('ampli'));
+document.querySelector('.micro').addEventListener('click', () => tryUpgrade('micro'));
+document.querySelector('.corps').addEventListener('click', () => tryUpgrade('corps'));
+document.querySelector('.mecanique').addEventListener('click', () => tryUpgrade('mecanique'));
+
+window.addEventListener('DOMContentLoaded', () => {
+    upgrades.forEach(u => {
+        const btn = document.querySelector(`.${u.name}`);
+        if (btn) refreshButtonInfo(btn, u.level, u.price);
+    });
+});
