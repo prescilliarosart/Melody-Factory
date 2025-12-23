@@ -248,7 +248,7 @@ mecanique.addEventListener("click", () => {
     mecaniquePrice = mecaniquePrice * 1.3;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 */
 //_____________Fonctions d'améliorations passives
@@ -262,7 +262,7 @@ cassette.addEventListener("click", () => {
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 album.addEventListener("click", () => {
@@ -274,7 +274,7 @@ album.addEventListener("click", () => {
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 ticket.addEventListener("click", () => {
@@ -286,7 +286,7 @@ ticket.addEventListener("click", () => {
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 placesConcert.addEventListener("click", () => {
@@ -298,7 +298,7 @@ placesConcert.addEventListener("click", () => {
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 casque.addEventListener("click", () => {
@@ -310,7 +310,7 @@ casque.addEventListener("click", () => {
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 worldTour.addEventListener("click", () => {
@@ -322,7 +322,7 @@ worldTour.addEventListener("click", () => {
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -354,3 +354,78 @@ function refreshButtonInfo(buttonEl, level, price) {
     }
 
 }
+
+//_____________Fonction pour calculuer le niveau global
+
+function getCommonLevel() {
+    return Math.min(
+        mediatorLevel,
+        mancheLevel,
+        ampliLevel,
+        microLevel,
+        corpsLevel,
+        mecaniqueLevel
+    );
+}
+
+//_____________Fonction de mise à jour du skin
+
+const guitarImg = document.querySelector(".button-guitar");
+
+function updateGuitarSkin() {
+    const level = getCommonLevel();
+    let selectedSkin = guitarSkins[0].src;
+
+    for (const skin of guitarSkins) {
+        if (level >= skin.level) {
+            selectedSkin = skin.src;
+        }
+    }
+
+    guitarImg.src = selectedSkin;
+}
+
+// ================== PARAMÈTRES / LUMINOSITÉ ==================
+
+const settingsBtn = document.getElementById("settingsBtn");
+const settingsPanel = document.getElementById("settingsPanel");
+const brightnessSlider = document.getElementById("brightness");
+const brightnessValue = document.getElementById("brightnessValue");
+
+// Ouvrir / fermer le panneau
+settingsBtn.addEventListener("click", () => {
+    settingsPanel.classList.toggle("hidden");
+});
+
+// Charger la luminosité sauvegardée
+const savedBrightness = localStorage.getItem("brightness") || 100;
+brightnessSlider.value = savedBrightness;
+brightnessValue.textContent = `${savedBrightness}%`;
+document.documentElement.style.setProperty(
+    "--brightness",
+    `${savedBrightness}%`
+);
+
+// Modifier la luminosité
+brightnessSlider.addEventListener("input", () => {
+    const value = brightnessSlider.value;
+    brightnessValue.textContent = `${value}%`;
+    document.documentElement.style.setProperty("--brightness", `${value}%`);
+    localStorage.setItem("brightness", value);
+});
+
+// Fermer si clic en dehors
+document.addEventListener("click", (e) => {
+    if (!settingsPanel.contains(e.target) && !settingsBtn.contains(e.target)) {
+        settingsPanel.classList.add("hidden");
+    }
+});
+const audio = document.getElementById('monAudio');
+
+function lancerMusique() {
+    audio.play();
+    document.removeEventListener('click', lancerMusique);
+}
+
+document.addEventListener('click', lancerMusique);
+
