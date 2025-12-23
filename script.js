@@ -21,6 +21,9 @@
 let score = 0;
 let clickValue = 1;
 let passiveValue = 0;
+let currentSkinLevel = 0;
+const LEVEL_STEP = 10;
+const buttonLv = document.querySelector(".button-lv");
 const scoreDisplay = document.getElementById("score");
 const guitarClick = document.querySelector(".onclick");
 
@@ -39,6 +42,39 @@ setInterval(() => {
     updateDisplay();
 
 }, 1000);
+
+//_____________Bouton Level Up doit être activé
+
+function checkLevelUp() {
+    const commonLevel = getCommonLevel();
+    const nextLevel = currentSkinLevel + LEVEL_STEP;
+
+    if (commonLevel >= nextLevel) {
+        buttonLv.disabled = false;
+    } else {
+        buttonLv.disabled = true;
+    }
+}
+
+buttonLv.addEventListener("click", () => {
+    if (buttonLv.disabled) return;
+
+    currentSkinLevel += LEVEL_STEP;
+    updateGuitarSkin();
+    buttonLv.disabled = true;
+});
+
+function updateGuitarSkin() {
+    let selectedSkin = guitarSkins[0].src;
+
+    for (const skin of guitarSkins) {
+        if (currentSkinLevel >= skin.level) {
+            selectedSkin = skin.src;
+        }
+    }
+
+    guitarImg.src = selectedSkin;
+}
 
 
 //_____________Affichage des nombrea au click
@@ -72,6 +108,22 @@ let corpsLevel = 0;
 let corpsPrice = 320;
 let mecaniqueLevel = 0;
 let mecaniquePrice = 640;
+const upgrades = [
+    { name: 'mediator', level: 0, price: 15 },
+    { name: 'manche', level: 0, price: 40 },
+    { name: 'ampli', level: 0, price: 80 },
+    { name: 'micro', level: 0, price: 160 },
+    { name: 'corps', level: 0, price: 320 },
+    { name: 'mecanique', level: 0, price: 640 }
+];
+function getCurrentDecadeLimit() {
+    const minLevel = Math.min(...upgrades.map(u => u.level));
+    return Math.floor(minLevel / 10) * 10 + 10;
+}
+function canUpgrade(upgrade) {
+    const limit = getCurrentDecadeLimit();
+    return upgrade.level < limit;
+}
 
 //_____________Variables des gains passifs
 let cassetteQuantity = 0;
@@ -86,6 +138,16 @@ let casqueQuantity = 0;
 let casquePrice = 1600;
 let worldTourQuantity = 0;
 let worldTourPrice = 3200;
+
+//_____________Constantes skin guitare par pallier de niveau
+
+const guitarSkins = [
+    { level: 0, src: "image/PC GUITAR Niveau1 1.png" },
+    { level: 10, src: "image/GUITAR Niveau2.png" },
+    { level: 20, src: "image/GUITAR Niveau3.png" },
+    { level: 30, src: "image/GUITAR Niveau4.png" },
+    { level: 40, src: "image/GUITAR Niveau5.png" }
+];
 
 //_____________Création des boutons amélioration par click
 const mediator = document.querySelector(".mediator");
@@ -104,79 +166,91 @@ const casque = document.querySelector(".casque");
 const worldTour = document.querySelector(".worldTour");
 
 //_____________Fonctions d'améliorations par click
-
+/*_____________Ancienne méthode.
 mediator.addEventListener("click", () => {
     if (score < mediatorPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= mediatorPrice;
     mediatorLevel += 1;
     clickValue += 1;
-    mediatorPrice = mediatorPrice * 1.7;
+    mediatorPrice = mediatorPrice * 1.3;
     refreshButtonInfo(mediator, mediatorLevel, mediatorPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 manche.addEventListener("click", () => {
     if (score < manchePrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= manchePrice;
     mancheLevel += 1;
     clickValue += 2;
-    manchePrice = manchePrice * 1.6;
+    manchePrice = manchePrice * 1.3;
     refreshButtonInfo(manche, mancheLevel, manchePrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 ampli.addEventListener("click", () => {
     if (score < ampliPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= ampliPrice;
     ampliLevel += 1;
     clickValue += 3;
-    ampliPrice = ampliPrice * 1.5;
+    ampliPrice = ampliPrice * 1.3;
     refreshButtonInfo(ampli, ampliLevel, ampliPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 micro.addEventListener("click", () => {
     if (score < microPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= microPrice;
     microLevel += 1;
     clickValue += 4;
-    microPrice = microPrice * 1.4;
+    microPrice = microPrice * 1.3;
     refreshButtonInfo(micro, microLevel, microPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 corps.addEventListener("click", () => {
     if (score < corpsPrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= corpsPrice;
     corpsLevel += 1;
     clickValue += 5;
     corpsPrice = corpsPrice * 1.3;
     refreshButtonInfo(corps, corpsLevel, corpsPrice);
     updateDisplay();
-
+    checkLevelUp();
 });
 
 mecanique.addEventListener("click", () => {
     if (score < mecaniquePrice) return;
-
+    const up = upgrades.find(u => u.name === name);
+    if (!up) return console.error('Upgrade inconnu :', name);
+    if (!canUpgrade(up)) return;
     score -= mecaniquePrice;
     mecaniqueLevel += 1;
     clickValue += 6;
-    mecaniquePrice = mecaniquePrice * 1.2;
+    mecaniquePrice = mecaniquePrice * 1.3;
     refreshButtonInfo(mecanique, mecaniqueLevel, mecaniquePrice);
     updateDisplay();
 
 });
-
+*/
 //_____________Fonctions d'améliorations passives
 
 cassette.addEventListener("click", () => {
@@ -188,7 +262,7 @@ cassette.addEventListener("click", () => {
     cassettePrice = cassettePrice * 2;
     refreshButtonInfo(cassette, cassetteQuantity, cassettePrice);
     updateDisplay();
-    addUpgradeToScene("image/PC Cassette.png");
+
 });
 
 album.addEventListener("click", () => {
@@ -200,7 +274,7 @@ album.addEventListener("click", () => {
     albumPrice = albumPrice * 2;
     refreshButtonInfo(album, albumQuantity, albumPrice);
     updateDisplay();
-    addUpgradeToScene("image/Album.png");
+
 });
 
 ticket.addEventListener("click", () => {
@@ -212,7 +286,7 @@ ticket.addEventListener("click", () => {
     ticketPrice = ticketPrice * 2;
     refreshButtonInfo(ticket, ticketQuantity, ticketPrice);
     updateDisplay();
-    addUpgradeToScene("image/Ticket.png");
+
 });
 
 placesConcert.addEventListener("click", () => {
@@ -224,7 +298,7 @@ placesConcert.addEventListener("click", () => {
     placesConcertPrice = placesConcertPrice * 2;
     refreshButtonInfo(placesConcert, placesConcertQuantity, placesConcertPrice);
     updateDisplay();
-    addUpgradeToScene("image/Places de concert.png");
+
 });
 
 casque.addEventListener("click", () => {
@@ -236,7 +310,7 @@ casque.addEventListener("click", () => {
     casquePrice = casquePrice * 2;
     refreshButtonInfo(casque, casqueQuantity, casquePrice);
     updateDisplay();
-    addUpgradeToScene("image/Casque.png");
+
 });
 
 worldTour.addEventListener("click", () => {
@@ -248,7 +322,7 @@ worldTour.addEventListener("click", () => {
     worldTourPrice = worldTourPrice * 2;
     refreshButtonInfo(worldTour, worldTourQuantity, worldTourPrice);
     updateDisplay();
-    addUpgradeToScene("image/PC World tour.png");
+
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -279,18 +353,4 @@ function refreshButtonInfo(buttonEl, level, price) {
         priceSpan.textContent = `${roundedPrice} €`;
     }
 
-}
-const sceneUpgradesContainer = document.querySelector(".scene-upgrades");
-
-function addUpgradeToScene(imageSrc) {
-    const img = document.createElement("img");
-    img.src = imageSrc;
-
-    const maxX = sceneUpgradesContainer.clientWidth - 64;
-    const maxY = sceneUpgradesContainer.clientHeight - 64;
-
-    img.style.left = Math.random() * maxX + "px";
-    img.style.top = Math.random() * maxY + "px";
-
-    sceneUpgradesContainer.appendChild(img);
 }

@@ -1,0 +1,26 @@
+html 
+
+<audio id="musiqueDefond" autoplay loop>
+        <source src="musique/musique de fond.mp3" type="audio/mpeg">
+      
+    </audio>
+
+
+js
+
+//; const audio = document.getElementById('musiqueDefond');
+
+// Démarrer au clic de l'utilisateur si bloqué
+//document.addEventListener('click', function () {
+ //   if (audio.paused) {
+  //      audio.play().catch(e => console.log('Lecture bloquée:', e));
+  //  }
+//}, { once: true });
+
+//function toggleMusique() {
+ //   if (audio.paused) {
+  //      audio.play();
+  //  } else {
+  //      audio.pause();
+  //  }
+//}

@@ -32,6 +32,16 @@ main {
 
 }
 
+.button-lv:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    filter: grayscale(100%);
+}
+
+.button-lv {
+    transition: 0.3s;
+}
+
 .guitar {
     display: flex;
     flex-direction: column;
@@ -106,6 +116,34 @@ button:active {
 .button-guitar {
     width: 19.19em;
     height: 49em;
+}
+
+/* Luminosité globale */
+:root {
+    --brightness: 100%;
+}
+
+html {
+    filter: brightness(var(--brightness));
+    transition: filter 0.2s ease;
+}
+
+/* Panneau paramètres */
+#settingsPanel {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    width: 200px;
+}
+
+/* Caché */
+.hidden {
+    display: none;
 }
 
 @media screen and (max-width: 768px) {
