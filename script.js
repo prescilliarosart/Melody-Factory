@@ -19,7 +19,7 @@
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
 let score = 0;
-let clickValue = 10000000;
+let clickValue = 1;
 let passiveValue = 0;
 let currentSkinLevel = 0;
 const LEVEL_STEP = 10;
