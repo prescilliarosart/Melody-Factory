@@ -19,7 +19,7 @@
 //_____________La base du jeu (variables, constantes, et fonctions primordiales)
 
 let score = 0;
-let clickValue = 1;
+let clickValue = 100;
 let passiveValue = 0;
 let currentSkinLevel = 0;
 const LEVEL_STEP = 10;
@@ -251,6 +251,46 @@ mecanique.addEventListener("click", () => {
     checkLevelUp();
 });
 */
+// Remplacez tout le bloc commenté (Ancienne méthode) par ceci :
+
+upgrades.forEach((up, index) => {
+    const buttonElement = document.querySelector(`.${up.name}`);
+
+    buttonElement.addEventListener("click", () => {
+        // 1. Vérifier si on a assez de score
+        if (score < up.price) return;
+
+        // 2. Vérifier si on n'a pas atteint la limite du palier (votre règle de gestion)
+        if (!canUpgrade(up)) {
+            alert("Montez les autres éléments pour débloquer ce niveau !");
+            return;
+        }
+
+        // 3. Appliquer l'achat
+        score -= up.price;
+        up.level += 1;
+
+        // Mise à jour de la puissance de clic (ajuste selon votre équilibrage)
+        clickValue += (index + 1);
+
+        // Augmentation du prix (ex: +30%)
+        up.price = Math.floor(up.price * 1.3);
+
+        // 4. Synchroniser avec les anciennes variables pour ne pas casser le reste du code
+        // (Note: Idéalement, il faudrait supprimer ces variables globales à l'avenir)
+        if (up.name === 'mediator') mediatorLevel = up.level;
+        if (up.name === 'manche') mancheLevel = up.level;
+        if (up.name === 'ampli') ampliLevel = up.level;
+        if (up.name === 'micro') microLevel = up.level;
+        if (up.name === 'corps') corpsLevel = up.level;
+        if (up.name === 'mecanique') mecaniqueLevel = up.level;
+
+        // 5. Mettre à jour l'interface
+        refreshButtonInfo(buttonElement, up.level, up.price);
+        updateDisplay();
+        checkLevelUp();
+    });
+});
 //_____________Fonctions d'améliorations passives
 
 cassette.addEventListener("click", () => {
